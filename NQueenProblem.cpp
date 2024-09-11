@@ -39,21 +39,23 @@ for (int i=row,j=col;i>=0 && j>=0; i--,j--){
  }
  return true; 
 }
-void nQueen(vector<vector<char>> &board,int row){
+int  nQueen(vector<vector<char>> &board,int row){
   // base case : if all queens are placed 
      int n =board.size(); 
      if (row==n){
      printBoard(board); 
-     return; 
+     return 1; 
 }
 // is safe return a boolean value which has been fed here if 
+int count =0;
 for (int j =0; j<n; j++){
  if (isSafe(board,row,j)){
       board[row][j]='Q'; // try placing queen in each column 
-      nQueen(board,row+1);// recurs to do the next work 
+      count+=nQueen(board,row+1);// recurs to do the next work 
       board[row][j]='.'; // back track 
       }
    }
+   return count; // no of possible solution at each level ; 
 }
 int main( ){
 vector<vector<char>>board; 
@@ -67,6 +69,7 @@ for (int i=0; i<n;i++){
 }
 // above logic can be written as too
 //vector<vector<char>> board(n, vector<char>(n, '.'));
-nQueen(board,0);// started from the first row =0;
+int count =nQueen(board,0);// started from the first row =0;
+cout<<"The no of possible solutions are: "<<count; 
 return 0; 
 }
